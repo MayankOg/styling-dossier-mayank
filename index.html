@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Mayank Style" />
+  <meta name="theme-color" content="#141210" />
+  <link rel="manifest" href="./manifest.json" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%232E221D'/%3E%3Crect x='3' y='3' width='58' height='58' rx='14' fill='none' stroke='%23C99E67' stroke-width='2'/%3E%3Ctext x='32' y='40' text-anchor='middle' font-family='system-ui' font-weight='800' font-size='26' fill='%23F3EDE2'%3EMD%3C/text%3E%3C/svg%3E" />
+  <title>Styling Dossier Mayank</title>
+  <style>
+    :root {
+      --bg: #141210;
+      --bg-elev: #1d1a17;
+      --card: #24201c;
+      --card-2: #2c2722;
+      --border: #3a332c;
+      --text: #f3ede2;
+      --muted: #b8ae9f;
+      --accent: #c99e67;
+      --accent-ink: #17130f;
+      --good: #3fb97c;
+      --warn: #e0a94f;
+      --bad: #e0615c;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+      --radius: 16px;
+    }
+    body.light {
+      --bg: #f6f2ea;
+      --bg-elev: #efe9dd;
+      --card: #ffffff;
+      --card-2: #f8f5ef;
+      --border: #dfd6c7;
+      --text: #1f1b18;
+      --muted: #665d52;
+      --accent: #8f5c2c;
+      --accent-ink: #ffffff;
+      --good: #1f8a54;
+      --warn: #b37414;
+      --bad: #c0392b;
+      --shadow: 0 8px 24px rgba(45, 34, 20, 0.08);
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    html, body {
+      margin: 0; padding: 0;
+      background: var(--bg); color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+      font-size: 15px; line-height: 1.5;
+    }
+    button { font-family: inherit; color: inherit; cursor: pointer; }
+    .app-shell {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 14px 14px 92px;
+    }
+    @media (min-width: 820px) {
+      .app-shell { padding: 20px 24px 36px; }
+    }
+    /* Top Header */
+    .topbar {
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+      padding: 12px 14px;
+      background: var(--bg-elev);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: 14px;
+      position: sticky; top: 8px; z-index: 30;
+      backdrop-filter: blur(12px);
+    }
+    .brand { display: flex; align-items: center; gap: 10px; }
+    .brand-badge {
+      width: 38px; height: 38px; border-radius: 11px;
+      background: linear-gradient(135deg, #2e221d, #a14628);
+      border: 1px solid var(--accent);
+      display: grid; place-items: center;
+      font-weight: 800; color: #f3ede2; font-size: 15px; letter-spacing: 0.5px;
+      shrink: 0;
+    }
+    .brand-title { font-weight: 700; font-size: 15px; letter-spacing: -0.2px; }
+    .brand-sub { font-size: 12px; color: var(--muted); }
+    .top-actions { display: flex; align-items: center; gap: 8px; }
+    .pill-btn {
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--text);
+      padding: 7px 11px;
+      border-radius: 999px;
+      font-size: 12px; font-weight: 600;
+    }
+    .pill-btn:hover { border-color: var(--accent); }
+    /* Desktop Nav */
+    .desktop-nav {
+      display: none; gap: 6px; flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+    @media (min-width: 820px) { .desktop-nav { display: flex; } }
+    .nav-tab {
+      border: 1px solid var(--border);
+      background: var(--bg-elev);
+      color: var(--muted);
+      padding: 9px 14px;
+      border-radius: 12px;
+      font-size: 13px; font-weight: 600;
+      transition: all 0.15s ease;
+    }
+    .nav-tab.active {
+      background: var(--accent);
+      color: var(--accent-ink);
+      border-color: var(--accent);
+    }
+    /* Mobile Bottom Nav */
+    .mobile-nav {
+      position: fixed; left: 0; right: 0; bottom: 0; z-index: 40;
+      background: var(--bg-elev);
+      border-top: 1px solid var(--border);
+      display: grid; grid-template-columns: repeat(6, 1fr);
+      padding: 6px 4px calc(6px + env(safe-area-inset-bottom));
+      backdrop-filter: blur(14px);
+    }
+    @media (min-width: 820px) { .mobile-nav { display: none; } }
+    .m-tab {
+      background: transparent; border: 0;
+      display: flex; flex-direction: column; align-items: center; gap: 2px;
+      padding: 6px 2px; border-radius: 10px;
+      color: var(--muted); font-size: 11px; font-weight: 600;
+    }
+    .m-tab .ico { font-size: 16px; line-height: 1; }
+    .m-tab.active { color: var(--accent); background: rgba(201,158,103,0.12); }
+    /* Layout & Cards */
+    .view { display: none; }
+    .view.active { display: block; }
+    .grid-2 { display: grid; gap: 14px; grid-template-columns: 1fr; }
+    @media (min-width: 820px) { .grid-2 { grid-template-columns: 1.05fr 1fr; align-items: start; } }
+    .grid-3 { display: grid; gap: 12px; grid-template-columns: 1fr; }
+    @media (min-width: 680px) { .grid-3 { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 980px) { .grid-3 { grid-template-columns: repeat(3, 1fr); } }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 15px;
+      box-shadow: var(--shadow);
+    }
+    .card + .card { margin-top: 12px; }
+    .h2 { font-size: 16px; font-weight: 700; margin: 0 0 6px; letter-spacing: -0.2px; }
+    .h3 { font-size: 14px; font-weight: 700; margin: 0 0 6px; }
+    .muted { color: var(--muted); font-size: 13px; }
+    .chip {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 4px 9px; border-radius: 999px;
+      font-size: 11px; font-weight: 700;
+      border: 1px solid var(--border);
+      background: var(--card-2);
+    }
+    .chip.good { color: var(--good); border-color: rgba(63,185,124,0.35); background: rgba(63,185,124,0.1); }
+    .chip.warn { color: var(--warn); border-color: rgba(224,169,79,0.35); background: rgba(224,169,79,0.1); }
+    .chip.bad  { color: var(--bad);  border-color: rgba(224,97,92,0.35);  background: rgba(224,97,92,0.1); }
+    /* Pair-on Studio */
+    .stage {
+      background: radial-gradient(circle at 50% 25%, rgba(201,158,103,0.14), transparent 65%), var(--bg-elev);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px;
+      display: flex; flex-direction: column; align-items: center; gap: 10px;
+    }
+    .swatch-grid {
+      display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px;
+    }
+    @media (max-width: 420px) { .swatch-grid { grid-template-columns: repeat(4, 1fr); } }
+    .sw-btn {
+      border: 2px solid transparent;
+      border-radius: 11px;
+      padding: 5px 4px;
+      min-height: 52px;
+      display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-start;
+      font-size: 10px; font-weight: 700; line-height: 1.1;
+      transition: transform 0.12s ease, border-color 0.12s ease;
+      position: relative;
+    }
+    .sw-btn.active {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--accent);
+    }
+    .sw-btn.avoid-tag::after {
+      content: "AVOID";
+      position: absolute; top: 3px; right: 3px;
+      background: rgba(180,30,30,0.9); color: #fff;
+      font-size: 8px; padding: 1px 4px; border-radius: 4px;
+    }
+    .seg-row { display: flex; flex-wrap: wrap; gap: 6px; }
+    .seg-btn {
+      background: var(--card-2);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 7px 10px;
+      border-radius: 10px;
+      font-size: 12px; font-weight: 600;
+    }
+    .seg-btn.active {
+      background: var(--accent);
+      color: var(--accent-ink);
+      border-color: var(--accent);
+    }
+    .score-bar-wrap {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: 100%;
+    }
+    .score-box {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 10px 12px;
+    }
+    .score-val { font-size: 22px; font-weight: 800; line-height: 1.1; }
+    .progress {
+      height: 6px; border-radius: 99px; background: var(--bg-elev);
+      margin-top: 6px; overflow: hidden;
+    }
+    .progress > div { height: 100%; border-radius: 99px; transition: width 0.25s ease; }
+    .matrix-table {
+      width: 100%; border-collapse: collapse; font-size: 13px;
+    }
+    .matrix-table th, .matrix-table td {
+      padding: 10px 8px; border-bottom: 1px solid var(--border); text-align: left; vertical-align: top;
+    }
+    .matrix-table th { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.4px; }
+    .pattern-preview {
+      height: 54px; border-radius: 10px; border: 1px solid var(--border); margin-bottom: 8px;
+    }
+    .toast {
+      position: fixed; left: 50%; bottom: 84px; transform: translateX(-50%);
+      background: var(--accent); color: var(--accent-ink);
+      padding: 8px 14px; border-radius: 999px; font-size: 12px; font-weight: 700;
+      box-shadow: var(--shadow); opacity: 0; pointer-events: none; transition: opacity 0.2s;
+      z-index: 60;
+    }
+    .toast.show { opacity: 1; }
+    .saved-chip {
+      display: flex; align-items: center; justify-content: space-between; gap: 10px;
+      padding: 9px 11px; border-radius: 12px;
+      background: var(--card-2); border: 1px solid var(--border);
+      margin-top: 8px;
+    }
+    .dots { display: inline-flex; gap: 4px; align-items: center; }
+    .dot { width: 16px; height: 16px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.2); }
+    .list-clean { margin: 6px 0 0; padding-left: 18px; color: var(--muted); font-size: 13px; }
+    .list-clean li { margin-bottom: 5px; }
+    .list-clean strong { color: var(--text); }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <!-- Top Header -->
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-badge">MD</div>
+        <div>
+          <div class="brand-title">Styling Dossier Mayank</div>
+          <div class="brand-sub">23M • 5'8" • 72 kg • Deep Autumn (Neutral-Warm)</div>
+        </div>
+      </div>
+      <div class="top-actions">
+        <button class="pill-btn" id="random-combo-btn" title="Suggest winning solid combo">🎲 Smart Pair</button>
+        <button class="pill-btn" id="theme-toggle">☀️ Theme</button>
+      </div>
+    </header>
+
+    <!-- Desktop Navigation -->
+    <nav class="desktop-nav" id="desktop-nav">
+      <button class="nav-tab active" data-view="pairon">👔 Pair-On Studio</button>
+      <button class="nav-tab" data-view="fits">👖 Fit Matrix (Korean / Jeans)</button>
+      <button class="nav-tab" data-view="palette">🎨 Color Palette &amp; Skin</button>
+      <button class="nav-tab" data-view="patterns">📐 Layering, Checks &amp; Stripes</button>
+      <button class="nav-tab" data-view="grooming">💈 Beard, Hair &amp; Frame</button>
+      <button class="nav-tab" data-view="occasions">✨ Looks (Street / Smart / Date)</button>
+    </nav>
+
+    <!-- VIEW 1: PAIR-ON STUDIO -->
+    <section id="view-pairon" class="view active">
+      <div class="grid-2">
+        <!-- Left: Live Dressed Mannequin & Score -->
+        <div>
+          <div class="stage">
+            <div style="display:flex; width:100%; justify-content:space-between; align-items:center;">
+              <span class="chip" id="mood-badge">Kobayashi: Dandy • Smart Casual</span>
+              <button class="pill-btn" id="save-outfit-btn">★ Save Pair</button>
+            </div>
+
+            <!-- Live SVG Figure tailored to Mayank (5'8", 72kg, Deep Autumn skin + black hair/boxed beard) -->
+            <svg id="mannequin" viewBox="0 0 260 365" width="230" height="322" aria-label="Outfit Pair-On Visualizer">
+              <!-- Ground shadow -->
+              <ellipse cx="130" cy="348" rx="54" ry="8" fill="rgba(0,0,0,0.28)" />
+              <!-- Skin Head & Neck (Calibrated WB #B27F6C) -->
+              <rect x="118" y="56" width="24" height="24" rx="8" fill="#A87461" />
+              <ellipse cx="130" cy="41" rx="18" ry="22" fill="#B27F6C" />
+              <!-- Sculpted Hair (Mid-High Drop Fade + Textured Top) -->
+              <path d="M112 35 C111 18, 120 12, 130 12 C140 12, 149 18, 148 35 C146 25, 139 22, 130 22 C121 22, 114 25, 112 35 Z" fill="#18191E" />
+              <!-- Sculpted Boxed Beard & Mustache -->
+              <path d="M113 43 C113 57, 121 65, 130 65 C139 65, 147 57, 147 43 L144 43 C143 52, 137 57, 130 57 C123 57, 117 52, 116 43 Z" fill="#1B1C22" />
+              <path d="M123 48 Q130 45 137 48 Q130 51 123 48 Z" fill="#1B1C22" />
+              <!-- Eyes / Brows -->
+              <path d="M119 34 Q123 32 127 34" stroke="#18191E" stroke-width="2" fill="none" />
+              <path d="M133 34 Q137 32 141 34" stroke="#18191E" stroke-width="2" fill="none" />
+              <circle cx="123" cy="37" r="1.6" fill="#18191E" />
+              <circle cx="137" cy="37" r="1.6" fill="#18191E" />
+
+              <!-- Arms (Visible Skin) -->
+              <path id="arm-left" d="M84 96 L70 166 L83 169 L95 108 Z" fill="#A87461" />
+              <path id="arm-right" d="M176 96 L190 166 L177 169 L165 108 Z" fill="#A87461" />
+              <!-- Hands -->
+              <circle cx="75" cy="173" r="6" fill="#A87461" />
+              <circle cx="185" cy="173" r="6" fill="#A87461" />
+              <!-- Watch on Left Wrist (viewer's right) -->
+              <rect x="176" y="159" width="13" height="5" rx="2" fill="#8C939E" />
+
+              <!-- TOP GARMENT -->
+              <g id="svg-top-group">
+                <path id="svg-top" d="M90 78 L118 72 L130 82 L142 72 L170 78 L184 114 L166 118 L163 102 L162 174 L98 174 L97 102 L94 118 L76 114 Z" fill="#1B263B" stroke="rgba(0,0,0,0.22)" stroke-width="1" />
+                <!-- Collar / Placket -->
+                <path id="svg-collar" d="M118 72 L130 88 L142 72" fill="none" stroke="rgba(255,255,255,0.22)" stroke-width="2" />
+                <line x1="130" y1="88" x2="130" y2="122" stroke="rgba(255,255,255,0.16)" stroke-width="1.4" />
+              </g>
+
+              <!-- BOTTOM GARMENT -->
+              <g id="svg-bottom-group">
+                <path id="svg-bottom" d="M98 168 L162 168 L168 322 L140 322 L130 228 L120 322 L92 322 Z" fill="#F2ECE1" stroke="rgba(0,0,0,0.2)" stroke-width="1" />
+                <!-- Subtle center crease / pleat hint -->
+                <line id="svg-pleat-l" x1="112" y1="176" x2="108" y2="316" stroke="rgba(0,0,0,0.12)" stroke-width="1.2" />
+                <line id="svg-pleat-r" x1="148" y1="176" x2="152" y2="316" stroke="rgba(0,0,0,0.12)" stroke-width="1.2" />
+              </g>
+
+              <!-- OPEN LAYER (Optional Overshirt / Bomber / Blazer) -->
+              <g id="svg-layer-group" style="display:none;">
+                <path id="svg-layer-l" d="M88 76 L116 72 L119 182 L94 182 L94 106 L88 158 L73 156 L82 94 Z" fill="#3B4D2B" stroke="rgba(0,0,0,0.25)" stroke-width="1" />
+                <path id="svg-layer-r" d="M172 76 L144 72 L141 182 L166 182 L166 106 L172 158 L187 156 L178 94 Z" fill="#3B4D2B" stroke="rgba(0,0,0,0.25)" stroke-width="1" />
+              </g>
+
+              <!-- SHOES -->
+              <path id="svg-shoe-l" d="M92 322 L120 322 L122 338 Q106 344 88 338 Z" fill="#2E221D" />
+              <path id="svg-shoe-r" d="M140 322 L168 322 L172 338 Q154 344 138 338 Z" fill="#2E221D" />
+            </svg>
+
+            <div class="score-bar-wrap">
+              <div class="score-box">
+                <div style="display:flex; justify-content:space-between; align-items:baseline;">
+                  <span class="muted">Color Harmony</span>
+                  <span class="score-val" id="color-score">96</span>
+                </div>
+                <div class="progress"><div id="color-bar" style="width:96%; background:var(--good);"></div></div>
+              </div>
+              <div class="score-box">
+                <div style="display:flex; justify-content:space-between; align-items:baseline;">
+                  <span class="muted">5'8" Silhouette</span>
+                  <span class="score-val" id="fit-score">95</span>
+                </div>
+                <div class="progress"><div id="fit-bar" style="width:95%; background:var(--good);"></div></div>
+              </div>
+            </div>
+
+            <div class="card" style="width:100%; background:var(--card); margin:0;" id="pairon-verdict"></div>
+          </div>
+        </div>
+
+        <!-- Right: Solid Color & Cut Controls -->
+        <div>
+          <div class="card">
+            <div style="display:flex; justify-content:space-between; align-items:center; gap:8px; margin-bottom:8px;">
+              <div class="h3" style="margin:0;">1. Solid Top Color <span class="muted" id="top-label"></span></div>
+              <label style="font-size:12px; color:var(--muted); display:flex; align-items:center; gap:5px;">
+                <input type="checkbox" id="show-avoid-toggle" /> Test Avoid Colors
+              </label>
+            </div>
+            <div class="swatch-grid" id="top-swatches"></div>
+          </div>
+
+          <div class="card">
+            <div class="h3">2. Solid Bottom Color <span class="muted" id="bottom-label"></span></div>
+            <div class="swatch-grid" id="bottom-swatches"></div>
+          </div>
+
+          <div class="card">
+            <div class="h3">3. Open Layer (Optional) &amp; Footwear</div>
+            <div class="seg-row" id="layer-btns" style="margin-bottom:10px;"></div>
+            <div class="seg-row" id="shoe-btns"></div>
+          </div>
+
+          <div class="card">
+            <div class="h3">4. Fit &amp; Cut Pairing</div>
+            <div class="muted" style="margin-bottom:6px;">Shirt Cut:</div>
+            <div class="seg-row" id="shirt-fit-btns" style="margin-bottom:10px;"></div>
+            <div class="muted" style="margin-bottom:6px;">Pant / Jean Cut:</div>
+            <div class="seg-row" id="pant-fit-btns"></div>
+          </div>
+
+          <div class="card" id="saved-box">
+            <div class="h3">★ Saved Solid Pairs (Stored on Device)</div>
+            <div class="muted" id="saved-empty">Tap "Save Pair" above to bookmark your favorite solid combinations for shopping.</div>
+            <div id="saved-list"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 2: FIT MATRIX -->
+    <section id="view-fits" class="view">
+      <div class="card">
+        <div class="h2">Shirt Cut × Pant / Jean Matrix (5'8", 72 kg)</div>
+        <p class="muted" style="margin-top:0;">Tailored to your preference to <strong>avoid slim-fit clothes</strong>, smooth the side-profile midsection curve seen in <code>IMG_4168</code>, and replace the 50/50 split with a taller 1/3 : 2/3 silhouette.</p>
+        <div style="overflow-x:auto;">
+          <table class="matrix-table">
+            <thead>
+              <tr>
+                <th>Bottom Silhouette</th>
+                <th>With Regular / Boxy Shirt</th>
+                <th>With Slim-Fit Shirt</th>
+                <th>Your Exact Spec Target</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>🥇 Korean Pants</strong><br><span class="muted">Pleated Wide-Taper / Straight High-Rise</span></td>
+                <td><span class="chip good">10/10 BEST</span><br>Use a <strong>French tuck, full tuck, or cropped boxy shirt</strong> so the high waistband shows. Instant +2" visual leg length.</td>
+                <td><span class="chip warn">7.5/10 ONLY TUCKED</span><br>Works only if tucked into high rise + open overshirt/blazer to prevent mid-belly cling.</td>
+                <td><strong>Rise:</strong> 11"–12"<br><strong>Hem:</strong> 7.5"–8.25" (19–21 cm)<br><strong>Break:</strong> Clean quarter/no-break</td>
+              </tr>
+              <tr>
+                <td><strong>🥈 Relaxed Jeans</strong><br><span class="muted">Relaxed-Straight / Athletic Taper</span></td>
+                <td><span class="chip good">9/10 STREETWEAR</span><br>Best everyday match for untucked 240+ GSM boxy tees &amp; open overshirts. Avoid long shirts past mid-fly.</td>
+                <td><span class="chip bad">5/10 AVOID</span><br>Tight chest/belly shirt over loose jeans looks unbalanced and accentuates lower-torso roundness.</td>
+                <td><strong>Rise:</strong> 10.5"–11.5"<br><strong>Hem:</strong> 8"–8.5" (no rips)<br><strong>Wash:</strong> Dark Indigo, Charcoal, Ecru</td>
+              </tr>
+              <tr>
+                <td><strong>🥉 Bootcut Jeans</strong><br><span class="muted">Subtle Straight-to-Micro-Flare</span></td>
+                <td><span class="chip warn">6.5/10 TRICKY</span><br><strong>Never</strong> wear untucked regular shirt + sneakers with bootcut (creates bell-bottom/boxy clash). Works <strong>only tucked/cropped + heeled boots</strong>.</td>
+                <td><span class="chip bad">5.5/10 AVOID</span><br>Fitted thighs + narrow upper waist can emphasize hip/midsection if shirt is tight.</td>
+                <td><strong>Flare:</strong> Subtle 8.5"–9" max<br><strong>Shoes:</strong> 1.25" heel Chelsea/Cuban boots<br><strong>Top:</strong> Cropped or tucked</td>
+              </tr>
+              <tr>
+                <td><strong>✕ Skinny Jeans</strong><br><span class="muted">Like IMG_4167 / 4168</span></td>
+                <td><span class="chip bad">4/10 RETIRE</span><br>Makes calves look narrow (`63–70 px` side depth) under a regular shirt, magnifying upper torso depth.</td>
+                <td><span class="chip bad">3/10 WORST</span><br>Highlights every soft contour and cuts stature visually.</td>
+                <td>Replace all skinny jeans with <strong>Straight or Korean Pleated</strong> cuts.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="grid-2" style="margin-top:12px;">
+        <div class="card">
+          <div class="h3">Why Regular / Boxy Beats Slim-Fit on You</div>
+          <ul class="list-clean">
+            <li><strong>Crossley et al. (2012) Ideal Male BMI:</strong> Your BMI (<strong>24.1</strong>) already matches the female-rated ideal male BMI (<strong>24.46</strong>). Slim-fit stretch fabrics collapse at the chest and hug the lower abdomen (<code>IMG_4168</code>), masking your solid front V-taper (~1.57 outer shoulder-to-waist ratio).</li>
+            <li><strong>Architectural Drape:</strong> Midweight woven cottons (OCBDs, linen-cotton, twill) and <strong>220–280 GSM heavyweight tees</strong> fall vertically straight from the pecs.</li>
+            <li><strong>Regular Fit ≠ Oversized Sack:</strong> In <code>IMG_0308</code>, a super-long drop-shoulder shirt swallowed your legs. Choose <strong>regular fit in the chest/waist</strong> with shoulder seams sitting right on the bone and shirt hem ending at mid-fly (26.5"–28").</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="h3">Quick Shopping Rules for Korean Pants &amp; Jeans</div>
+          <ul class="list-clean">
+            <li><strong>Korean Pants Colors:</strong> Start with <strong>Deep Charcoal, Midnight Navy, Dark Olive-Brown (like <code>4164AD9B</code>), and Ecru/Warm Stone (like <code>IMG_3244</code>)</strong>.</li>
+            <li><strong>Jeans Colors:</strong> Clean <strong>Raw/Dark Indigo</strong>, <strong>Washed Charcoal Black</strong>, and <strong>Off-White/Ecru</strong> — skip ripped or bleached light-blue (<code>IMG_1876</code>).</li>
+            <li><strong>Footwear Pairing:</strong> Straight/Korean pants demand structured shoes (Chelsea boots, penny loafers, clean retro court sneakers) — never flat thin slides outside gym/beach.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 3: COLOR PALETTE & SKIN -->
+    <section id="view-palette" class="view">
+      <div class="card">
+        <div class="h2">Tap Any Color to Copy Hex &amp; Test in Pair-On</div>
+        <p class="muted" style="margin-top:0;">Calibrated across 34 photos (dual neutral-white WB convergence: <strong>L* 58, a* +17.5, b* +18.0, ITA 21°–25°</strong> + inner-wrist green-olive veins + real wardrobe A/B draping proof).</p>
+        <div class="grid-3" id="palette-cards"></div>
+      </div>
+
+      <div class="grid-2" style="margin-top:12px;">
+        <div class="card">
+          <div class="h3">Verified Real-Photo Color Proof</div>
+          <ul class="list-clean">
+            <li><strong>Winners on Your Skin:</strong> Deep Espresso (<code>IMG_1729</code>, <code>IMG_1857</code>), Midnight Navy (<code>IMG_3244</code>), Forest Olive (<code>IMG_0286</code>, <code>IMG_3769</code>), Rust Linen (<code>fxn 04-21</code>), Slate Teal (<code>197ddc7f</code>), Ivory/Ecru (<code>IMG_1619</code>, <code>IMG_7537</code>).</li>
+            <li><strong>Confirmed Washes (Avoid Near Face):</strong> Pale Mint Satin (<code>IMG_0264</code>), Pale Butter Yellow (<code>IMG_0413</code>, <code>IMG_4450</code>), Pale Lilac Pinstripe Kurta (<code>IMG_2367</code>), Pale Pinkish-White Check (<code>IMG_1731</code>).</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="h3">Metals, Watch &amp; Eyewear Hardware</div>
+          <ul class="list-clean">
+            <li><strong>Jewelry &amp; Hardware:</strong> Warm brushed gold/brass/bronze harmonizes best with your Deep Autumn undertone; brushed stainless steel works cleanly in neutral smart-casual outfits (<code>IMG_4167</code> silver chain looked crisp). Avoid flashy shiny chrome.</li>
+            <li><strong>Watch Spec:</strong> 38–40 mm brushed steel or champagne dial with espresso/tobacco leather strap.</li>
+            <li><strong>Sunglasses / Glasses:</strong> Dark tortoiseshell, espresso acetate, or brushed gunmetal/gold square or clubmaster frames.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 4: LAYERING, CHECKS & STRIPES -->
+    <section id="view-patterns" class="view">
+      <div class="card">
+        <div class="h2">1. Layering — Your Highest-ROI Styling Weapon</div>
+        <p class="muted" style="margin-top:0;">Why layering transforms a 5'8", 72 kg frame instantly:</p>
+        <div class="grid-3">
+          <div class="card" style="background:var(--card-2); margin:0;">
+            <div class="h3">Vertical Framing (Side Fix)</div>
+            <div class="muted">An open overshirt, bomber (<code>media_2326</code> cuff), or blazer draws two sharp vertical edges down your torso, hiding slight lower-abdomen projection and broadening shoulders.</div>
+          </div>
+          <div class="card" style="background:var(--card-2); margin:0;">
+            <div class="h3">Color Shielding</div>
+            <div class="muted">Wear bright Ivory/Stone tees safely by framing your jaw and neck with dark Olive, Midnight Navy, Charcoal, or Espresso outer layers.</div>
+          </div>
+          <div class="card" style="background:var(--card-2); margin:0;">
+            <div class="h3">5'8" Cropped Length Rule</div>
+            <div class="muted">Target <strong>26"–27.5"</strong> outer-layer length ending right at the hip bone over 11" rise Korean pants or straight jeans — never mid-thigh sag.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-2" style="margin-top:12px;">
+        <div class="card">
+          <div class="h2">2. Stripes — Science vs. Myth</div>
+          <p class="muted" style="margin-top:0;"><strong>Thompson &amp; Mikellidou (2011, <em>i-Perception</em>)</strong> proved the Helmholtz illusion in 3D: <strong>finely spaced horizontal stripes make figures appear ~7.1% taller &amp; slimmer</strong> when fabric doesn't cling.</p>
+          <div class="pattern-preview" style="background: repeating-linear-gradient(90deg, #1E281D 0 18px, #141416 18px 28px, #E9E2D2 28px 33px);"></div>
+          <span class="chip good">✓ GO WITH: Dark-Base Vertical (IMG_3769)</span>
+          <p class="muted">Matte Cuban-collar shirts or crisp woven button-downs in olive/black/ecru or navy/ecru vertical stripes.</p>
+
+          <div class="pattern-preview" style="background: repeating-linear-gradient(0deg, #1B263B 0 9px, #F2ECE1 9px 12px);"></div>
+          <span class="chip good">✓ GO WITH: Fine Breton Micro-Stripes (Structured Knit)</span>
+          <p class="muted">Only in heavy 220+ GSM polo/tee fabric that skims straight — never thin stretch jersey.</p>
+
+          <span class="chip bad">✕ AVOID: Pale Pinstripes (IMG_2367) &amp; Wide Rugby Belly Bands</span>
+        </div>
+
+        <div class="card">
+          <div class="h2">3. Checks &amp; Plaids — Scale &amp; Open Rules</div>
+          <p class="muted" style="margin-top:0;">Evaluated directly from the 5 check outfits across your photos:</p>
+          <div class="pattern-preview" style="background: repeating-linear-gradient(45deg, transparent 0 22px, rgba(242,236,225,0.75) 22px 24px), repeating-linear-gradient(-45deg, transparent 0 22px, rgba(242,236,225,0.75) 22px 24px), #3B4D2B;"></div>
+          <span class="chip good">✓ GO WITH: Dark-Dominant Diagonal/Thin Grid (IMG_0286)</span>
+          <p class="muted">85% dark olive/navy base + 15% thin cream diagonal lines draws eyes vertically rather than widening your midsection.</p>
+
+          <div class="pattern-preview" style="background: repeating-linear-gradient(90deg, rgba(24,25,30,0.85) 0 24px, rgba(242,236,225,0.85) 24px 48px), repeating-linear-gradient(0deg, rgba(24,25,30,0.45) 0 24px, rgba(242,236,225,0.45) 24px 48px);"></div>
+          <span class="chip warn">⚠ OPEN LAYER ONLY: Bold Plaid (IMG_1876, IMG_1619)</span>
+          <p class="muted">Buttoned up, giant high-contrast squares look boxy. Wear <strong>unbuttoned over a solid Charcoal/Ivory/Navy tee</strong>.</p>
+
+          <span class="chip bad">✕ AVOID: Buttoned Square Gingham (IMG_2733) &amp; Pale Pink Checks (IMG_1731)</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 5: BEARD, HAIR & PROPORTIONS -->
+    <section id="view-grooming" class="view">
+      <div class="grid-2">
+        <div class="card">
+          <div class="h2">Beard &amp; Hair Verdict (From Your Past Photos)</div>
+          <ul class="list-clean">
+            <li><strong>🥇 #1 Best Look (<code>197ddc7f</code>, <code>IMG_3769</code>, <code>IMG_0286</code>):</strong> <strong>Mid-to-High Skin Taper Fade + Sculpted Boxed Beard</strong>. Removing temple/rear-ear bulk lifts facial proportions, while crisp cheek lines + slightly longer chin (7–9 mm chin, 4–5 mm cheeks) sharpen your jawline dramatically.</li>
+            <li><strong>Clean Neckline Rule:</strong> Shave two fingers above the Adam's apple — crisp under-jaw shadow makes your side profile (<code>IMG_4168</code>) look leaner instantly.</li>
+            <li><strong>Posture Micro-Cue:</strong> Lift sternum gently and tuck pelvis slightly neutral to flatten the mild anterior pelvic tilt visible in <code>IMG_4168</code>/<code>4169</code>.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="h2">Your Measured Proportions (5'8", 72 kg)</div>
+          <ul class="list-clean">
+            <li><strong>BMI &amp; VHI:</strong> BMI <strong>24.1 kg/m²</strong> (Crossley 2012 female-rated ideal male BMI = <strong>24.46</strong>). Est. VHI ~<strong>22.7 L/m²</strong>.</li>
+            <li><strong>Front Ratios (<code>IMG_4167</code>):</strong> Outer shoulder-to-waist ratio <strong>~1.57</strong> (right on evolutionary ideal!), front waist-to-hip <strong>~0.91</strong>, ~7.4 heads tall.</li>
+            <li><strong>Why Pants + Shirt Hem Matter:</strong> Your current low-rise jeans split your height <strong>50.2% / 49.8%</strong> (true inseam 42.3%). Raising pant rise to 11" with cropped/tucked tops converts you to a tall <strong>35% / 65%</strong> split.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 6: OCCASION LOOKS -->
+    <section id="view-occasions" class="view">
+      <div class="card" style="margin-bottom:12px;">
+        <div class="h2">Ready-to-Wear Outfits — Tap Any Card to Load in Pair-On Studio</div>
+        <div class="seg-row" id="occasion-filters" style="margin-top:8px;">
+          <button class="seg-btn active" data-occ="all">All</button>
+          <button class="seg-btn" data-occ="smart">Smart Casual</button>
+          <button class="seg-btn" data-occ="street">Streetwear</button>
+          <button class="seg-btn" data-occ="date">Date Night</button>
+          <button class="seg-btn" data-occ="festive">Festive</button>
+        </div>
+      </div>
+      <div class="grid-3" id="occasion-cards"></div>
+    </section>
+  </div>
+
+  <!-- Mobile Bottom App Bar -->
+  <nav class="mobile-nav" id="mobile-nav">
+    <button class="m-tab active" data-view="pairon"><span class="ico">👔</span>Pair-On</button>
+    <button class="m-tab" data-view="fits"><span class="ico">👖</span>Fits</button>
+    <button class="m-tab" data-view="palette"><span class="ico">🎨</span>Colors</button>
+    <button class="m-tab" data-view="patterns"><span class="ico">📐</span>Patterns</button>
+    <button class="m-tab" data-view="grooming"><span class="ico">💈</span>Beard</button>
+    <button class="m-tab" data-view="occasions"><span class="ico">✨</span>Looks</button>
+  </nav>
+
+  <div class="toast" id="toast">Copied!</div>
+
+  <script>
+    const COLORS = {
+      espresso:   { name: "Deep Espresso",    hex: "#2E221D", text: "#FFFFFF", role: "Warm Dark Neutral",     temp: "warm",   depth: "dark",  avoid: false, lab: [16, 6, 6],   note: "Proven #1 in IMG_1729 & IMG_1857. Richer and more flattering than jet black." },
+      navy:       { name: "Midnight Navy",    hex: "#1B263B", text: "#FFFFFF", role: "Core Neutral Anchor",   temp: "neutral",depth: "dark",  avoid: false, lab: [16, 1, -14], note: "Proven winner in IMG_3244. Sharpest smart-casual base for shirts & Korean pants." },
+      olive:      { name: "Forest Olive",     hex: "#3B4D2B", text: "#FFFFFF", role: "Signature Earth",       temp: "warm",   depth: "dark",  avoid: false, lab: [31, -11, 17],note: "Mirrors your olive-warm undertone (IMG_0286, IMG_3769, bomber cuff)." },
+      charcoal:   { name: "Deep Charcoal",    hex: "#36393F", text: "#FFFFFF", role: "Clean Dark Neutral",    temp: "neutral",depth: "dark",  avoid: false, lab: [24, 0, -4],  note: "Cleanest dark neutral for heavy tees, blazers, and pleated Korean trousers." },
+      rust:       { name: "Rust Terracotta",  hex: "#A14628", text: "#FFFFFF", role: "Warm Power Accent",     temp: "warm",   depth: "mid",   avoid: false, lab: [41, 35, 32], note: "Proven glow in fxn 04-21. Top choice for linen shirts, dates & summer wear." },
+      teal:       { name: "Deep Slate Teal",  hex: "#0F4C5C", text: "#FFFFFF", role: "Cusp Jewel-Earth",      temp: "neutral",depth: "dark",  avoid: false, lab: [30, -14, -12],note: "Daylight winner (197ddc7f). Exceptional for kurtas, Cuban shirts & polos." },
+      oxblood:    { name: "Oxblood Wine",     hex: "#5E1D24", text: "#FFFFFF", role: "Evening Power Accent",  temp: "warm",   depth: "dark",  avoid: false, lab: [21, 29, 12], note: "High-contrast warm red for date nights, knits & festive Nehru jackets." },
+      ivory:      { name: "Soft Ivory / Ecru",hex: "#F2ECE1", text: "#1F1B18", role: "Warm Light Neutral",    temp: "warm",   depth: "light", avoid: false, lab: [93, 0, 6],   note: "Proven in IMG_1619, IMG_3244 & IMG_7537. Crisp high contrast without chalkiness." },
+      stone:      { name: "Khaki / Stone",    hex: "#C2B49A", text: "#1F1B18", role: "Light Bottom Neutral",  temp: "warm",   depth: "light", avoid: false, lab: [74, 1, 14],  note: "Proven trouser neutral (IMG_1729). Best worn as bottoms with dark/rich tops." },
+      camel:      { name: "Tobacco Camel",    hex: "#A67B5B", text: "#FFFFFF", role: "Rich Tan Accent",       temp: "warm",   depth: "mid",   avoid: false, lab: [54, 11, 21], note: "Ideal for suede overshirts, boots, belts & footwear." },
+      black:      { name: "Jet Black",        hex: "#161618", text: "#FFFFFF", role: "High-Contrast Dark",    temp: "neutral",depth: "dark",  avoid: false, lab: [8, 0, -1],   note: "Works well in structured cuts or layered bottoms; softer when paired with Ivory/Olive." },
+      indigo:     { name: "Dark Indigo Denim",hex: "#23324D", text: "#FFFFFF", role: "Clean Denim Base",      temp: "neutral",depth: "dark",  avoid: false, lab: [21, 2, -19], note: "Clean un-ripped dark denim for relaxed-straight jeans." },
+      olivebrown: { name: "Olive-Brown",      hex: "#453D31", text: "#FFFFFF", role: "Proven Trouser Shade",  temp: "warm",   depth: "dark",  avoid: false, lab: [26, 1, 9],   note: "Exact trouser tone from 4164AD9B — versatile with white, rust, or navy tops." },
+      mint:       { name: "Pale Mint",        hex: "#C4DEC7", text: "#1F1B18", role: "Avoid (Cool Pastel)",   temp: "cool",   depth: "light", avoid: true,  lab: [86, -12, 8], note: "Tested in IMG_0264 — icy pastel washes out medium skin and clashes with black beard." },
+      yellow:     { name: "Pastel Yellow",    hex: "#ECE08E", text: "#1F1B18", role: "Avoid (Pale Pastel)",   temp: "warm",   depth: "light", avoid: true,  lab: [88, -4, 42], note: "Tested in IMG_0413 & IMG_4450 — pulls sallow under indoor/cool lighting." },
+      lilac:      { name: "Icy Lilac",        hex: "#DDD6EA", text: "#1F1B18", role: "Avoid (Cool Icy)",      temp: "cool",   depth: "light", avoid: true,  lab: [86, 4, -8],  note: "Tested in IMG_2367 — drains warmth and lowers facial contrast." }
+    };
+
+    const TOP_KEYS = ["espresso", "navy", "olive", "rust", "teal", "oxblood", "ivory", "charcoal", "camel", "black"];
+    const AVOID_KEYS = ["mint", "yellow", "lilac"];
+    const BOTTOM_KEYS = ["navy", "charcoal", "olivebrown", "ivory", "stone", "espresso", "indigo", "black", "olive"];
+
+    const LAYERS = [
+      { id: "none", label: "No Layer", color: null },
+      { id: "olive", label: "Olive Bomber/Overshirt", color: "#3B4D2B" },
+      { id: "charcoal", label: "Charcoal Blazer/Jacket", color: "#36393F" },
+      { id: "navy", label: "Navy Chore Overshirt", color: "#1B263B" },
+      { id: "camel", label: "Tobacco Suede Shacket", color: "#A67B5B" }
+    ];
+
+    const SHOES = [
+      { id: "espresso", label: "Espresso Loafers/Boots", color: "#2E221D" },
+      { id: "camel", label: "Tobacco Derbies/Mojari", color: "#A67B5B" },
+      { id: "ivory", label: "Ecru/Gum Sneakers", color: "#E6DFD2" },
+      { id: "black", label: "Black Chelsea Boots", color: "#1B1B1E" }
+    ];
+
+    const SHIRT_FITS = [
+      { id: "regular", label: "Regular / Boxy Woven" },
+      { id: "heavytee", label: "250GSM Heavy Tee" },
+      { id: "slim_tucked", label: "Slim Shirt (Tucked)" },
+      { id: "tight_polo", label: "Tight Stretch Polo" }
+    ];
+
+    const PANT_FITS = [
+      { id: "korean", label: "Korean Pants (Pleated)" },
+      { id: "relaxed", label: "Relaxed-Straight Jeans" },
+      { id: "bootcut", label: "Bootcut + Boots" },
+      { id: "skinny", label: "Skinny Jeans" }
+    ];
+
+    const OCCASIONS = [
+      { occ: "smart", title: "Navy OCBD + Ecru Korean Pants", tag: "Dandy • Smart Casual", top: "navy", bottom: "ivory", layer: "none", shoe: "espresso", shirtFit: "regular", pantFit: "korean", note: "Refined version of IMG_3244. French-tuck or cropped hem, sleeves rolled mid-forearm." },
+      { occ: "smart", title: "Espresso Twill + Khaki Korean Pants", tag: "Classic • Warm Harmony", top: "espresso", bottom: "stone", layer: "none", shoe: "ivory", shirtFit: "regular", pantFit: "korean", note: "Refined version of IMG_1729. Warm brown brightens your face and anchors light trousers." },
+      { occ: "street", title: "Open Olive Bomber + Ivory Tee + Charcoal", tag: "Dynamic • Streetwear", top: "ivory", bottom: "charcoal", layer: "olive", shoe: "ivory", shirtFit: "heavytee", pantFit: "relaxed", note: "Uses your olive bomber aesthetic (media_2326) to shield an ivory heavyweight tee." },
+      { occ: "street", title: "Open Navy Overshirt + Stone Tee + Indigo", tag: "Cool-Casual • Streetwear", top: "stone", bottom: "indigo", layer: "navy", shoe: "ivory", shirtFit: "heavytee", pantFit: "relaxed", note: "Clean un-ripped dark indigo relaxed jeans keep legs grounded and proportionate." },
+      { occ: "date", title: "Rust Linen + Olive-Brown Trousers", tag: "Chic • Date Night", top: "rust", bottom: "olivebrown", layer: "none", shoe: "espresso", shirtFit: "regular", pantFit: "korean", note: "Combines your fxn 04-21 rust shirt warmth with your 4164AD9B olive-brown pants cut." },
+      { occ: "date", title: "Oxblood Cuban + Charcoal + Chelsea", tag: "Chic • Evening", top: "oxblood", bottom: "charcoal", layer: "none", shoe: "black", shirtFit: "regular", pantFit: "bootcut", note: "If wearing subtle bootcut, pair with tucked/cropped Cuban shirt & heeled Chelsea boots." },
+      { occ: "festive", title: "Deep Teal Kurta/Bandhgala + Ivory", tag: "Ethnic • Festive", top: "teal", bottom: "ivory", layer: "none", shoe: "camel", shirtFit: "regular", pantFit: "korean", note: "Daylight winner (197ddc7f) elevated with straight ivory pajama & tobacco mojari." },
+      { occ: "festive", title: "Ivory Kurta + Open Pine/Navy Nehru", tag: "Gorgeous • Wedding", top: "ivory", bottom: "ivory", layer: "olive", shoe: "camel", shirtFit: "regular", pantFit: "korean", note: "Monochrome ivory column framed by structured dark olive/navy waistcoat for instant height." }
+    ];
+
+    const state = {
+      top: "navy",
+      bottom: "ivory",
+      layer: "none",
+      shoe: "espresso",
+      shirtFit: "regular",
+      pantFit: "korean",
+      showAvoid: false,
+      saved: JSON.parse(localStorage.getItem("mayank_saved_pairs") || "[]")
+    };
+
+    function showToast(msg) {
+      const t = document.getElementById("toast");
+      t.textContent = msg;
+      t.classList.add("show");
+      clearTimeout(window.__tt);
+      window.__tt = setTimeout(() => t.classList.remove("show"), 1600);
+    }
+
+    function computeEvaluation() {
+      const topC = COLORS[state.top];
+      const botC = COLORS[state.bottom];
+      const hasLayer = state.layer !== "none";
+      const layerC = hasLayer ? COLORS[state.layer] : null;
+
+      // 1. Color Score (Shamoi 2023 + Zhang 2020 + Skin Contrast)
+      let colorScore = 92;
+      const reasons = [];
+      let mood = "Dandy • Smart Casual";
+
+      if (topC.avoid) {
+        colorScore -= 32;
+        reasons.push(`<span class="chip bad">Skin Clash</span> <strong>${topC.name}</strong> washes out medium warm-neutral skin (confirmed in your fitting-room photos).`);
+      } else if (topC.depth === "light" && !hasLayer && botC.depth === "light") {
+        colorScore -= 12;
+        reasons.push(`<span class="chip warn">Low Facial Anchor</span> Light top + light bottom drops contrast against your jet-black hair/beard — add a dark open layer!`);
+      } else if (topC.hex === botC.hex && topC.depth !== "dark" && !hasLayer) {
+        colorScore -= 8;
+        reasons.push(`<span class="chip warn">Flat Match</span> Exact same non-dark shade top & bottom lacks separation unless broken by a dark layer.`);
+      } else {
+        reasons.push(`<span class="chip good">Deep Autumn Match</span> <strong>${topC.name}</strong> + <strong>${botC.name}</strong> preserves your ΔL* ≈ 46 facial contrast.`);
+      }
+
+      if (state.top === state.bottom && topC.depth === "dark") {
+        colorScore -= 4;
+        reasons.push(`<span class="chip warn">Monochrome Dark</span> Looks sleek, especially if broken by contrast footwear or an open layer.`);
+      }
+
+      if (topC.temp === "warm" && botC.temp === "warm" && !topC.avoid) {
+        colorScore = Math.min(99, colorScore + 4);
+      }
+      if ((state.top === "rust" && state.bottom === "olive") || (state.top === "oxblood" && state.bottom === "teal")) {
+        colorScore -= 10;
+        reasons.push(`<span class="chip warn">Dual Saturated</span> Two strong accent hues compete — swap one for Navy, Charcoal, Stone, or Ivory (Zhang 2020 Cluster 2 rule).`);
+      }
+      if (hasLayer && topC.depth === "light") {
+        colorScore = Math.min(98, colorScore + 6);
+        reasons.push(`<span class="chip good">Layer Shield</span> Open <strong>${layerC.name}</strong> anchors your jawline so the light <strong>${topC.name}</strong> base pops cleanly.`);
+      }
+
+      // Kobayashi Mood Classification (Becattini 2022)
+      if (state.top === "rust" || state.top === "oxblood") mood = "Chic / Warm • Date Night";
+      else if (state.layer === "olive" || state.pantFit === "relaxed") mood = "Dynamic • Elevated Streetwear";
+      else if (state.top === "teal") mood = "Ethnic / Resort • Smart & Festive";
+      else if (state.top === "charcoal" || state.top === "navy") mood = "Dandy / Classic • Smart Casual";
+
+      // 2. Fit & Silhouette Score (5'8", 72kg + Avoids Slim Fit)
+      let fitScore = 95;
+      if (state.pantFit === "korean" && (state.shirtFit === "regular" || state.shirtFit === "heavytee")) {
+        fitScore = hasLayer ? 98 : 96;
+        reasons.push(`<span class="chip good">10/10 Cut Match</span> Regular/Boxy top + <strong>Korean pleated high-rise pants</strong> gives the ideal 1/3 : 2/3 vertical elongation (French-tuck or cropped hem).`);
+      } else if (state.pantFit === "relaxed" && (state.shirtFit === "regular" || state.shirtFit === "heavytee")) {
+        fitScore = hasLayer ? 96 : 91;
+        reasons.push(`<span class="chip good">Streetwear Match</span> <strong>Relaxed-straight jeans</strong> balance your torso depth cleanly; keep shirt hem at mid-fly.`);
+      } else if (state.pantFit === "bootcut") {
+        if (state.shoe === "ivory") {
+          fitScore = 70;
+          reasons.push(`<span class="chip warn">Shoe/Cut Tension</span> Bootcut jeans clash with flat sneakers under a regular top — switch to heeled <strong>Chelsea boots</strong> or switch pants to Korean/Relaxed.`);
+        } else {
+          fitScore = 84;
+          reasons.push(`<span class="chip warn">Bootcut Rule</span> Subtle bootcut + boots elongates legs <em>only</em> if the regular shirt is tucked or cropped; avoid long untucked hems.`);
+        }
+      } else if (state.pantFit === "skinny") {
+        fitScore = 54;
+        reasons.push(`<span class="chip bad">Side-Profile Bottleneck</span> Skinny jeans pinch your calves relative to upper-body depth (<code>IMG_4168</code> effect). Switch to Korean or Relaxed-Straight.`);
+      }
+
+      if (state.shirtFit === "tight_polo") {
+        fitScore -= 24;
+        reasons.push(`<span class="chip bad">Cling Warning</span> Tight stretch polos cling over the lower abdomen in side profile (<code>IMG_4168</code>) and violate your no-slim preference.`);
+      } else if (state.shirtFit === "slim_tucked") {
+        fitScore -= hasLayer ? 4 : 11;
+        reasons.push(`<span class="chip warn">Slim Fit Note</span> Works only tucked into high-rise Korean pants with an open layer; Regular/Boxy woven feels and drapes better.`);
+      }
+
+      colorScore = Math.max(35, Math.min(99, colorScore));
+      fitScore = Math.max(35, Math.min(99, fitScore));
+      return { colorScore, fitScore, mood, reasons };
+    }
+
+    function updateMannequin() {
+      const topC = COLORS[state.top];
+      const botC = COLORS[state.bottom];
+      const layerObj = LAYERS.find(l => l.id === state.layer);
+      const shoeObj = SHOES.find(s => s.id === state.shoe);
+
+      const svgTop = document.getElementById("svg-top");
+      const svgBot = document.getElementById("svg-bottom");
+      const svgCollar = document.getElementById("svg-collar");
+      const layerGrp = document.getElementById("svg-layer-group");
+
+      svgTop.setAttribute("fill", topC.hex);
+      svgBot.setAttribute("fill", botC.hex);
+      svgCollar.setAttribute("stroke", topC.depth === "light" ? "rgba(0,0,0,0.22)" : "rgba(255,255,255,0.24)");
+
+      // Adjust shirt silhouette path
+      if (state.shirtFit === "tight_polo" || state.shirtFit === "slim_tucked") {
+        svgTop.setAttribute("d", "M94 78 L118 72 L130 82 L142 72 L166 78 L178 110 L162 114 L158 102 L156 171 L104 171 L102 102 L98 114 L82 110 Z");
+      } else if (state.shirtFit === "heavytee") {
+        svgTop.setAttribute("d", "M86 78 L118 72 L130 80 L142 72 L174 78 L188 122 L166 126 L164 102 L163 172 L97 172 L96 102 L94 126 L72 122 Z");
+      } else {
+        svgTop.setAttribute("d", "M89 78 L118 72 L130 82 L142 72 L171 78 L185 116 L166 120 L163 102 L162 174 L98 174 L97 102 L94 118 L75 116 Z");
+      }
+
+      // Adjust bottom silhouette path (Korean vs Relaxed vs Bootcut vs Skinny)
+      const pleatL = document.getElementById("svg-pleat-l");
+      const pleatR = document.getElementById("svg-pleat-r");
+      if (state.pantFit === "korean") {
+        svgBot.setAttribute("d", "M96 164 L164 164 L170 322 L140 322 L130 226 L120 322 L90 322 Z");
+        pleatL.style.display = "block"; pleatR.style.display = "block";
+      } else if (state.pantFit === "relaxed") {
+        svgBot.setAttribute("d", "M97 168 L163 168 L171 324 L141 324 L130 228 L119 324 L89 324 Z");
+        pleatL.style.display = "none"; pleatR.style.display = "none";
+      } else if (state.pantFit === "bootcut") {
+        svgBot.setAttribute("d", "M98 168 L162 168 L161 248 L174 324 L139 324 L130 228 L121 324 L86 324 L99 248 Z");
+        pleatL.style.display = "none"; pleatR.style.display = "none";
+      } else {
+        svgBot.setAttribute("d", "M99 169 L161 169 L154 318 L137 318 L130 228 L123 318 L106 318 Z");
+        pleatL.style.display = "none"; pleatR.style.display = "none";
+      }
+
+      // Layer visibility & color
+      if (layerObj && layerObj.color) {
+        layerGrp.style.display = "block";
+        document.getElementById("svg-layer-l").setAttribute("fill", layerObj.color);
+        document.getElementById("svg-layer-r").setAttribute("fill", layerObj.color);
+      } else {
+        layerGrp.style.display = "none";
+      }
+
+      // Shoes
+      document.getElementById("svg-shoe-l").setAttribute("fill", shoeObj.color);
+      document.getElementById("svg-shoe-r").setAttribute("fill", shoeObj.color);
+
+      // Update labels & scores
+      document.getElementById("top-label").textContent = "— " + topC.name;
+      document.getElementById("bottom-label").textContent = "— " + botC.name;
+
+      const ev = computeEvaluation();
+      document.getElementById("mood-badge").textContent = "Kobayashi: " + ev.mood;
+      document.getElementById("color-score").textContent = ev.colorScore;
+      document.getElementById("fit-score").textContent = ev.fitScore;
+
+      const cb = document.getElementById("color-bar");
+      cb.style.width = ev.colorScore + "%";
+      cb.style.background = ev.colorScore >= 85 ? "var(--good)" : ev.colorScore >= 70 ? "var(--warn)" : "var(--bad)";
+
+      const fb = document.getElementById("fit-bar");
+      fb.style.width = ev.fitScore + "%";
+      fb.style.background = ev.fitScore >= 85 ? "var(--good)" : ev.fitScore >= 70 ? "var(--warn)" : "var(--bad)";
+
+      document.getElementById("pairon-verdict").innerHTML =
+        `<div class="h3">Stylist Assessment</div>` +
+        ev.reasons.map(r => `<div style="font-size:13px; color:var(--muted); margin-top:6px;">${r}</div>`).join("");
+    }
+
+    function renderControls() {
+      const topKeys = state.showAvoid ? TOP_KEYS.concat(AVOID_KEYS) : TOP_KEYS;
+      document.getElementById("top-swatches").innerHTML = topKeys.map(k => {
+        const c = COLORS[k];
+        return `<button class="sw-btn ${state.top === k ? "active" : ""} ${c.avoid ? "avoid-tag" : ""}" style="background:${c.hex}; color:${c.text};" data-top="${k}">${c.name}</button>`;
+      }).join("");
+
+      document.getElementById("bottom-swatches").innerHTML = BOTTOM_KEYS.map(k => {
+        const c = COLORS[k];
+        return `<button class="sw-btn ${state.bottom === k ? "active" : ""}" style="background:${c.hex}; color:${c.text};" data-bottom="${k}">${c.name}</button>`;
+      }).join("");
+
+      document.getElementById("layer-btns").innerHTML = LAYERS.map(l =>
+        `<button class="seg-btn ${state.layer === l.id ? "active" : ""}" data-layer="${l.id}">${l.label}</button>`
+      ).join("");
+
+      document.getElementById("shoe-btns").innerHTML = SHOES.map(s =>
+        `<button class="seg-btn ${state.shoe === s.id ? "active" : ""}" data-shoe="${s.id}">${s.label}</button>`
+      ).join("");
+
+      document.getElementById("shirt-fit-btns").innerHTML = SHIRT_FITS.map(f =>
+        `<button class="seg-btn ${state.shirtFit === f.id ? "active" : ""}" data-sfit="${f.id}">${f.label}</button>`
+      ).join("");
+
+      document.getElementById("pant-fit-btns").innerHTML = PANT_FITS.map(f =>
+        `<button class="seg-btn ${state.pantFit === f.id ? "active" : ""}" data-pfit="${f.id}">${f.label}</button>`
+      ).join("");
+
+      document.querySelectorAll("[data-top]").forEach(b => b.onclick = () => { state.top = b.dataset.top; renderControls(); updateMannequin(); });
+      document.querySelectorAll("[data-bottom]").forEach(b => b.onclick = () => { state.bottom = b.dataset.bottom; renderControls(); updateMannequin(); });
+      document.querySelectorAll("[data-layer]").forEach(b => b.onclick = () => { state.layer = b.dataset.layer; renderControls(); updateMannequin(); });
+      document.querySelectorAll("[data-shoe]").forEach(b => b.onclick = () => { state.shoe = b.dataset.shoe; renderControls(); updateMannequin(); });
+      document.querySelectorAll("[data-sfit]").forEach(b => b.onclick = () => { state.shirtFit = b.dataset.sfit; renderControls(); updateMannequin(); });
+      document.querySelectorAll("[data-pfit]").forEach(b => b.onclick = () => { state.pantFit = b.dataset.pfit; renderControls(); updateMannequin(); });
+    }
+
+    function renderSaved() {
+      const list = document.getElementById("saved-list");
+      const empty = document.getElementById("saved-empty");
+      if (!state.saved.length) { empty.style.display = "block"; list.innerHTML = ""; return; }
+      empty.style.display = "none";
+      list.innerHTML = state.saved.map((item, idx) => `
+        <div class="saved-chip">
+          <div class="dots">
+            <span class="dot" style="background:${COLORS[item.top].hex};"></span>
+            <span class="dot" style="background:${COLORS[item.bottom].hex};"></span>
+            ${item.layer !== "none" ? `<span class="dot" style="background:${LAYERS.find(l=>l.id===item.layer).color};"></span>` : ""}
+            <span style="font-size:12px; font-weight:600; margin-left:6px;">${COLORS[item.top].name} + ${COLORS[item.bottom].name}</span>
+          </div>
+          <div style="display:flex; gap:6px;">
+            <button class="pill-btn" data-load-saved="${idx}">Load</button>
+            <button class="pill-btn" data-del-saved="${idx}">✕</button>
+          </div>
+        </div>
+      `).join("");
+      list.querySelectorAll("[data-load-saved]").forEach(b => b.onclick = () => {
+        const it = state.saved[Number(b.dataset.loadSaved)];
+        Object.assign(state, it);
+        renderControls(); updateMannequin(); showToast("Loaded saved pair!");
+      });
+      list.querySelectorAll("[data-del-saved]").forEach(b => b.onclick = () => {
+        state.saved.splice(Number(b.dataset.delSaved), 1);
+        localStorage.setItem("mayank_saved_pairs", JSON.stringify(state.saved));
+        renderSaved();
+      });
+    }
+
+    function renderPaletteView() {
+      const keys = ["espresso", "navy", "olive", "rust", "teal", "oxblood", "ivory", "charcoal", "stone", "camel", "mint", "lilac"];
+      document.getElementById("palette-cards").innerHTML = keys.map(k => {
+        const c = COLORS[k];
+        return `
+          <div class="card" style="margin:0; display:flex; flex-direction:column; justify-content:space-between; gap:8px;">
+            <div style="height:56px; border-radius:11px; background:${c.hex}; color:${c.text}; padding:8px 10px; display:flex; justify-content:space-between; align-items:flex-end; border:1px solid var(--border);">
+              <strong style="font-size:13px;">${c.name}</strong>
+              <span style="font-family:monospace; font-size:11px;">${c.hex}</span>
+            </div>
+            <div>
+              <span class="chip ${c.avoid ? "bad" : "good"}">${c.role}</span>
+              <div class="muted" style="margin-top:6px;">${c.note}</div>
+            </div>
+            <div style="display:flex; gap:6px;">
+              <button class="pill-btn" data-copy-hex="${c.hex}">Copy Hex</button>
+              <button class="pill-btn" data-try-top="${k}">Try as Top</button>
+            </div>
+          </div>
+        `;
+      }).join("");
+      document.querySelectorAll("[data-copy-hex]").forEach(b => b.onclick = () => {
+        navigator.clipboard?.writeText(b.dataset.copyHex);
+        showToast("Copied " + b.dataset.copyHex);
+      });
+      document.querySelectorAll("[data-try-top]").forEach(b => b.onclick = () => {
+        state.top = b.dataset.tryTop;
+        if (COLORS[state.top].avoid) state.showAvoid = true;
+        document.getElementById("show-avoid-toggle").checked = state.showAvoid;
+        switchView("pairon");
+        renderControls(); updateMannequin();
+      });
+    }
+
+    function renderOccasions(filter = "all") {
+      const items = filter === "all" ? OCCASIONS : OCCASIONS.filter(o => o.occ === filter);
+      document.getElementById("occasion-cards").innerHTML = items.map((o, i) => `
+        <div class="card" style="margin:0; display:flex; flex-direction:column; justify-content:space-between; gap:10px;">
+          <div>
+            <span class="chip">${o.tag}</span>
+            <div class="h3" style="margin-top:8px;">${o.title}</div>
+            <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:6px; height:26px; margin:8px 0;">
+              <div style="border-radius:6px; background:${COLORS[o.top].hex}; border:1px solid var(--border);"></div>
+              <div style="border-radius:6px; background:${COLORS[o.bottom].hex}; border:1px solid var(--border);"></div>
+              <div style="border-radius:6px; background:${o.layer !== "none" ? LAYERS.find(l=>l.id===o.layer).color : SHOES.find(s=>s.id===o.shoe).color}; border:1px solid var(--border);"></div>
+            </div>
+            <div class="muted">${o.note}</div>
+          </div>
+          <button class="seg-btn active" data-load-occ="${OCCASIONS.indexOf(o)}" style="width:100%;">Load in Pair-On Studio →</button>
+        </div>
+      `).join("");
+      document.querySelectorAll("[data-load-occ]").forEach(b => b.onclick = () => {
+        const o = OCCASIONS[Number(b.dataset.loadOcc)];
+        state.top = o.top; state.bottom = o.bottom; state.layer = o.layer;
+        state.shoe = o.shoe; state.shirtFit = o.shirtFit; state.pantFit = o.pantFit;
+        switchView("pairon");
+        renderControls(); updateMannequin();
+      });
+    }
+
+    function switchView(id) {
+      document.querySelectorAll(".view").forEach(v => v.classList.remove("active"));
+      document.getElementById("view-" + id).classList.add("active");
+      document.querySelectorAll("[data-view]").forEach(b => b.classList.toggle("active", b.dataset.view === id));
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    document.querySelectorAll("[data-view]").forEach(b => b.onclick = () => switchView(b.dataset.view));
+    document.getElementById("show-avoid-toggle").onchange = e => {
+      state.showAvoid = e.target.checked;
+      if (!state.showAvoid && COLORS[state.top].avoid) state.top = "navy";
+      renderControls(); updateMannequin();
+    };
+    document.getElementById("save-outfit-btn").onclick = () => {
+      state.saved.unshift({ top: state.top, bottom: state.bottom, layer: state.layer, shoe: state.shoe, shirtFit: state.shirtFit, pantFit: state.pantFit });
+      state.saved = state.saved.slice(0, 10);
+      localStorage.setItem("mayank_saved_pairs", JSON.stringify(state.saved));
+      renderSaved();
+      showToast("Saved to device!");
+    };
+    document.getElementById("random-combo-btn").onclick = () => {
+      const pick = OCCASIONS[Math.floor(Math.random() * OCCASIONS.length)];
+      state.top = pick.top; state.bottom = pick.bottom; state.layer = pick.layer;
+      state.shoe = pick.shoe; state.shirtFit = pick.shirtFit; state.pantFit = pick.pantFit;
+      switchView("pairon");
+      renderControls(); updateMannequin();
+      showToast("Loaded: " + pick.title);
+    };
+    document.getElementById("theme-toggle").onclick = (e) => {
+      document.body.classList.toggle("light");
+      e.target.textContent = document.body.classList.contains("light") ? "🌙 Dark" : "☀️ Light";
+    };
+    document.querySelectorAll("#occasion-filters .seg-btn").forEach(b => b.onclick = () => {
+      document.querySelectorAll("#occasion-filters .seg-btn").forEach(x => x.classList.remove("active"));
+      b.classList.add("active");
+      renderOccasions(b.dataset.occ);
+    });
+
+    renderControls();
+    updateMannequin();
+    renderSaved();
+    renderPaletteView();
+    renderOccasions("all");
+  </script>
+</body>
+</html>

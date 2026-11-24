@@ -1,0 +1,9 @@
+{
+  "name": "Styling Dossier Mayank",
+  "short_name": "Mayank Style",
+  "description": "Personal lookmaxxing, solid-on-solid outfit pair-on studio, fit matrix, and Deep Autumn color palette companion for Mayank.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#141210",
+  "theme_color": "#141210"
+}
